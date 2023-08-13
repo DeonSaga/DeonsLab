@@ -1,0 +1,65 @@
+$royal_purple: #624cab;
+$space_cadet: #3b3160;
+$night: #131515;
+$jet: #2b2c28;
+$cool_gray: #9fa4c4;
+$silver: #cbbeb9;
+$sunset: #f6d8ae;
+
+:root {
+  --royal_purple: #{$royal_purple};
+  --space_cadet: #{$space_cadet};
+  --night: #{$night};
+  --jet: #{$jet};
+  --cool_gray: #{$cool_gray};
+  --silver: #{$silver};
+  --sunset: #{$sunset};
+}
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+  height: 100vh;
+  color: white;
+}
+
+body {
+  width: 100%;
+  max-width: 100vw;
+
+  overflow-x: hidden;
+  background-image: linear-gradient(180deg, $sunset, $silver, $cool_gray);
+  overflow-y: auto;
+}
+
+button {
+  background-color: rgba($color: #000000, $alpha: 0);
+  color: white;
+  padding: 0.4rem 2rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: "Josefin Sans", sans-serif;
+  border: solid 3px $royal_purple;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.navbar {
+  position: absolute;
+
+  z-index: 10;
+  background-color: rgba($color: #000000, $alpha: 0);
+  background-image: rgba($color: #000000, $alpha: 0);
+}
+
+button:hover {
+  background-color: $royal_purple;
+  color: darken($color: $cool_gray, $amount: 35%);
+
+  transition: 0.24s ease-in-out;
+}
+
+.main {
+  width: 100%;
+  height: 100vh;
+}
