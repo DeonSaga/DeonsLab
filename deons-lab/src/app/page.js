@@ -28,6 +28,7 @@ import {
   Float,
 } from "@react-three/drei";
 import { DesktopModel } from "./Components/Desktop";
+import Projects from "./Components/Projects/Projects";
 
 const Home = () => {
   //const sunset = new THREE.Color("var(--sunset)").convertSRGBToLinear;
@@ -36,6 +37,7 @@ const Home = () => {
   const [camLoaded, setCamLoaded] = useState(false);
   const [targetPosition, setTargetPosition] = useState([5, 5, 5]);
   const [targetRotation, setTargetRotation] = useState([-0.54, 0.7088, 0.372]);
+  const [page, setPage] = useState("Default");
 
   const camAnim = async () => {
     if (camLoaded !== true) {
@@ -44,10 +46,14 @@ const Home = () => {
     }
   };
 
+  const changePage = (e) => {
+    setPage(e);
+  };
   const projects = () => {
     console.log("switching to projects");
     setTargetPosition([5, 3, 5]);
     setTargetRotation([-0.1769, 0.2494, 0.0441]);
+    changePage("Projects");
   };
   useEffect(() => {
     if (cam) {
@@ -79,6 +85,7 @@ const Home = () => {
   return (
     <div className="main">
       <Suspense fallback={<Loading />}>
+        {page === "Projects" ? <Projects /> : ""}
         <Canvas
           gl={{ antialias: true, toneMapping: THREE.NoToneMapping }}
           linear

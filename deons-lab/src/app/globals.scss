@@ -6,6 +6,8 @@ $cool_gray: #9fa4c4;
 $silver: #cbbeb9;
 $sunset: #f6d8ae;
 
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:wght@700&display=swap");
+
 :root {
   --royal_purple: #{$royal_purple};
   --space_cadet: #{$space_cadet};
@@ -54,7 +56,7 @@ button {
 
 button:hover {
   background-color: $royal_purple;
-  color: darken($color: $cool_gray, $amount: 35%);
+  color: darken($color: $cool_gray, $amount: 100%);
 
   transition: 0.24s ease-in-out;
 }
@@ -62,4 +64,83 @@ button:hover {
 .main {
   width: 100%;
   height: 100vh;
+}
+
+.overlay {
+  width: 42%;
+  height: 72%;
+  margin: 0rem 1rem;
+  animation: 1s ease-out 0s 1 openingAnim;
+  border-radius: 1rem;
+  padding: 2rem;
+  background-color: rgba($color: $royal_purple, $alpha: 0.3);
+  position: absolute;
+  overflow-y: auto;
+  z-index: 20;
+  top: 17.5%;
+  left: 45%;
+}
+
+.projectEntry {
+  cursor: pointer;
+  background-color: $cool_gray;
+  padding: 0.7rem 1rem;
+  margin: 0.7rem 0rem;
+  color: $space_cadet;
+  border-radius: 1rem;
+}
+.projectEntry h3 {
+  font-weight: 500;
+}
+.projectTitle {
+  font-size: 48px;
+  font-family: "Anton", sans-serif;
+
+  text-transform: uppercase;
+}
+
+.projectTitle:hover {
+  color: lighten($royal_purple, 10%);
+  transition: 0.24s ease-in-out;
+}
+
+@keyframes openingAnim {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 72%;
+  }
+}
+
+.gridContainer {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-auto-rows: 150px;
+  grid-auto-flow: dense;
+}
+
+.gridItem {
+  display: flex;
+  justify-content: center;
+}
+
+.gridItem > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gridItem:nth-child(3n-1) {
+  grid-column: span 2;
+}
+
+.gridItem:nth-child(3n + 0) {
+  grid-row: span 2;
+}
+
+.gridItem:nth-child(2n) {
+  grid-row: span 2;
+  grid-column: span 2;
 }
