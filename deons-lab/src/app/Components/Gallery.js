@@ -7,7 +7,7 @@ const Gallery = ({ media }) => {
   return (
     <div className="gridContainer">
       {media.map((entry, index) => (
-        <Item href={entry} index={index} />
+        <Item href={entry} key={index} index={index} />
       ))}
     </div>
   );

@@ -39,4 +39,6 @@ const About = forwardRef(({}, ref) => {
   );
 });
 
+About.displayName = "AboutComponent";
+
 export default About;

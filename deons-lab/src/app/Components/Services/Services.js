@@ -48,6 +48,8 @@ const Services = forwardRef(({}, ref) => {
   );
 });
 
+Services.displayName = "Services";
+
 export default Services;
 
 const ServiceCard = ({ info, index }) => {

@@ -87,6 +87,8 @@ const Projects = forwardRef(({}, ref) => {
   );
 });
 
+Projects.displayName = "Projects";
+
 export default Projects;
 
 const Loading = () => {
