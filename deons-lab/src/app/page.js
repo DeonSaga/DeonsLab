@@ -3,10 +3,18 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import "./globals.scss";
 import "./globals.css";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, extend } from "@react-three/fiber";
 import * as THREE from "three";
 import { gsap } from "gsap";
 
+import {
+  EffectComposer,
+  Vignette,
+  Noise,
+  DepthOfField,
+  DotScreen,
+  Scanline,
+} from "@react-three/postprocessing";
 import React, {
   Suspense,
   useLayoutEffect,
@@ -23,12 +31,19 @@ import {
   MeshStandardMaterial,
   MeshBasicMaterial,
   Backdrop,
+  Extend,
+  useThree,
   Stage,
   Environment,
   Float,
 } from "@react-three/drei";
 import { DesktopModel } from "./Components/Desktop";
+import { BlendFunction } from "postprocessing";
 import Projects from "./Components/Projects/Projects";
+import NavBar from "./Components/NavBar";
+import About from "./Components/About/About";
+import Services from "./Components/Services/Services";
+import Experience from "./Components/Experience/Experience";
 
 const Home = () => {
   //const sunset = new THREE.Color("var(--sunset)").convertSRGBToLinear;
@@ -39,120 +54,52 @@ const Home = () => {
   const [targetRotation, setTargetRotation] = useState([-0.54, 0.7088, 0.372]);
   const [page, setPage] = useState("Default");
 
-  const camAnim = async () => {
-    if (camLoaded !== true) {
-      setCamLoaded(true);
-      console.log("resolved", cam.current);
-    }
-  };
+  const homeSec = useRef();
+  const aboutSec = useRef();
+  const servicesSec = useRef();
+  const projSec = useRef(null);
 
   const changePage = (e) => {
     setPage(e);
+
+    switch (e) {
+      case "Projects":
+        console.log(projSec.current);
+        projSec.current?.scrollIntoView({
+          behavior: "smooth",
+        });
+        break;
+
+      case "Services":
+        console.log(servicesSec.current);
+        servicesSec.current?.scrollIntoView({
+          behavior: "smooth",
+        });
+        break;
+
+      case "About":
+        aboutSec.current.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        break;
+
+      default:
+        break;
+    }
   };
   const projects = () => {
-    console.log("switching to projects");
-    setTargetPosition([5, 3, 5]);
-    setTargetRotation([-0.1769, 0.2494, 0.0441]);
     changePage("Projects");
   };
-  useEffect(() => {
-    if (cam) {
-      let ctx = gsap.context(() => {
-        gsap.to(cam.rotation, {
-          duration: 2,
-          ease: "power4.out",
-          x: targetRotation[0],
-          y: targetRotation[1],
-          z: targetRotation[2],
-        });
-        gsap.to(cam.position, {
-          duration: 2,
-          ease: "power4.out",
-          x: targetPosition[0],
-          y: targetPosition[1],
-          z: targetPosition[2],
-        });
-
-        console.log(cam);
-      });
-    }
-
-    // return () => {
-    //   ctx.revert();
-    // };
-  }, [cam, targetPosition]);
 
   return (
-    <div className="main">
+    <main>
+      <NavBar callback={(e) => changePage(e)} />
       <Suspense fallback={<Loading />}>
-        {page === "Projects" ? <Projects /> : ""}
-        <Canvas
-          gl={{ antialias: true, toneMapping: THREE.NoToneMapping }}
-          linear
-        >
-          <hemisphereLight
-            position={[0, 50, 0]}
-            intensity={2}
-            color="#cbbeb9"
-            groundColor="#624cab"
-          />
-          <color attach="background" args={["#2b2c28"]} />
-          <axesHelper args={[5]} />
-          {/* <Environment
-            files="https://cdn.jsdelivr.net/gh/Sean-Bradley/React-Three-Fiber-Boilerplate@environment/public/img/venice_sunset_1k.hdr"
-            background
-            blur={1}
-          /> */}
-          {/* <OrbitControls /> */}
-          <Suspense>
-            <PerspectiveCamera
-              makeDefault={true}
-              far={200}
-              ref={setCam}
-              position={[9, 5, 5]}
-              rotation={[0, 0, 0]}
-            />
-          </Suspense>
-
-          <Float>
-            <Stars radius={80} depth={20} count={500} factor={2} speed={1} />
-          </Float>
-
-          <mesh
-            receiveShadow
-            rotation={[-Math.PI / 2, 0, 0]}
-            position={[0, 0, 0]}
-          >
-            <ambientLight intensity={2} />
-
-            <planeGeometry args={[1000, 1000]} />
-            <MeshReflectorMaterial
-              roughness={1}
-              color="#9fa4c4"
-              blur={[100, 100]}
-              mixBlur={0.8}
-              mixStrength={1}
-              resolution={1024}
-              metalness={0.1}
-            />
-          </mesh>
-          <DesktopModel goToProjects={projects} />
-
-          <directionalLight intensity={0.56} />
-
-          <fog attach="fog" args={["#2b2c28", 12, 60]} />
-          {/* <Stage
-            adjustCamera
-            intensity={1}
-            shadows="contact"
-            environment="city"
-          >
-            {" "}
-           
-          </Stage> */}
-        </Canvas>
+        <About ref={aboutSec} />
+        <Services ref={servicesSec} />
+        <Experience />
+        <Projects ref={projSec} />
       </Suspense>
-    </div>
+    </main>
   );
 };
 

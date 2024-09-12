@@ -1,10 +1,16 @@
 "use client";
 
 import React, { useState, useEffect, Suspense } from "react";
-import ResponsiveGallery from "react-responsive-gallery";
+import { forwardRef } from "react";
 import Gallery from "../Gallery";
+import Image from "next/image";
+import Grid from "@mui/material/Grid2";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ReactMarkdown from "react-markdown";
+import { getApiLink } from "@/app/Hooks/useApi";
+import { Markup } from "interweave";
 
-const Projects = () => {
+const Projects = forwardRef(({}, ref) => {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelected] = useState(null);
 
@@ -13,43 +19,73 @@ const Projects = () => {
   }, []);
 
   const fetchData = async () => {
-    fetch(
-      "https://eu-west-2.aws.data.mongodb-api.com/app/data-svhrr/endpoint/getActiveProjects",
-      { headers: { "Content-Type": "application/json" }, method: "GET" }
-    )
+    fetch(getApiLink() + "/api/portfolio-projects?populate=deep", {
+      headers: { "Content-Type": "application/json" },
+      method: "GET",
+    })
       .then((response) => response.json())
       .then((data) => {
-        setProjects(data);
+        setProjects(data.data);
+        console.log(data.data);
       });
   };
 
   const changeProject = (e) => {
     console.log(e);
-    setSelected(e);
+    setSelected(e.attributes);
   };
 
   return (
-    <div className="overlay">
-      <Suspense fallback={<Loading />}>
-        {selectedProject === null ? (
-          <>
+    <section id="projects" ref={ref} className="strip alt">
+      <h1 className="sectionTitle">Latest Projects</h1>
+      <div className="overlay">
+        <Suspense fallback={<Loading />}>
+          <Grid
+            container
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 1, sm: 8, md: 12 }}
+          >
             {projects.map((e, index) => (
-              <ProjectEntry
-                info={e}
-                key={index}
-                callback={() => changeProject(index)}
-              />
+              <Grid key={index} size={{ xs: 2, sm: 4, md: 4 }}>
+                <ProjectEntry
+                  info={e.attributes}
+                  callback={() => changeProject(e)}
+                />
+              </Grid>
             ))}
-          </>
-        ) : (
-          <>
-            <ProjectDisplay info={projects[selectedProject]} />
-          </>
-        )}
-      </Suspense>
-    </div>
+          </Grid>
+        </Suspense>
+      </div>
+      {selectedProject ? (
+        <div className="projectView" onClick={() => setSelected(null)}>
+          <div className="projectViewContainer">
+            <div className="projectViewMedia">
+              <img
+                src={
+                  selectedProject.Cover.data
+                    ? getApiLink() + selectedProject.Cover.data.attributes.url
+                    : "https://cdn.pixabay.com/photo/2017/01/14/12/59/iceland-1979445_960_720.jpg"
+                }
+              />
+            </div>
+            <div className="projectViewInfo">
+              <h1>{selectedProject.Title}</h1>
+              <Markup content={selectedProject.Description}> </Markup>
+              <div>
+                <p>Tools Used:</p>{" "}
+                {selectedProject.tools.data.map((e, index) => (
+                  <p key={index}>{e.attributes.Name}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+    </section>
   );
-};
+});
 
 export default Projects;
 
@@ -57,11 +93,36 @@ const Loading = () => {
   return <div>Loading</div>;
 };
 const ProjectEntry = ({ info, callback }) => {
+  const [categories, setCategories] = useState("Coding,Web");
+
+  useEffect(() => {
+    let results = "";
+    info.Categories.data.map((e, index) => {
+      index > 0
+        ? (results += "/" + e.attributes.name)
+        : (results += e.attributes.name);
+    });
+    setCategories(results);
+  }, []);
+
   return (
-    <div className="projectEntry" onClick={callback}>
-      <h1 className="projectTitle">{info.title}</h1>
-      <h3>{info.category}</h3>
-      <h3>{info.tools}</h3>
+    <div className="card projectCard" onClick={callback}>
+      <div className="projectImg">
+        <img
+          src={
+            info.Cover.data
+              ? getApiLink() + info.Cover.data.attributes.url
+              : "https://cdn.pixabay.com/photo/2017/01/14/12/59/iceland-1979445_960_720.jpg"
+          }
+        />
+      </div>
+      <div className="projectInfo">
+        <h2>{info.Title}</h2>
+        <span>{categories}</span>
+        <a href={info.Link} target="_blank">
+          <ArrowForwardIcon />
+        </a>
+      </div>
     </div>
   );
 };
@@ -101,12 +162,18 @@ const ProjectDisplay = ({ info, index }) => {
   ];
 
   return (
-    <div className="projectEntry" style={{ lineHeight: "0.3rem" }}>
-      <h1 className="projectTitle">{info.title}</h1>
+    <div className="card">
+      <div
+        style={{ display: "inline-flex", alignItems: "center", gap: "1rem" }}
+      >
+        <h1 className="projectTitle">{info.title}</h1>
+        <h3>{info.category}</h3>
+      </div>
+
       <h4>{info.description}</h4>
-      <h3>{info.category}</h3>
+
       <h3>{info.tools}</h3>
-      <Gallery media={images} />
+      {/* <Gallery media={images} /> */}
     </div>
   );
 };
