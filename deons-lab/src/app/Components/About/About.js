@@ -6,12 +6,17 @@ import React, { useState, useEffect, Suspense, forwardRef } from "react";
 
 const About = forwardRef(({}, ref) => {
   return (
-    <section id="about" ref={ref} className="strip">
+    <section
+      id="about"
+      ref={ref}
+      className="strip"
+      style={{ paddingBottom: "0rem" }}
+    >
       <Grid container lg={12} spacing={4} columns={{ xs: 1, sm: 2, md: 12 }}>
         <Grid item size={6}>
           <Stack>
             <div className="headerTitle">
-              <h2>A Full Stack Creative</h2>
+              <h2>Multi Media Creative</h2>
             </div>
 
             <h3 style={{ fontWeight: "normal" }}>
@@ -25,13 +30,23 @@ const About = forwardRef(({}, ref) => {
         <Grid item size={6}>
           <div
             style={{
-              backgroundColor: "rgba(180,0,255,0.2)",
               width: "100%",
-              height: "100%",
-              display: "flex",
+              height: "760px",
+              position: "relative",
+              display: "block",
             }}
           >
-            <h3 style={{ margin: "auto" }}>Image Here</h3>
+            <img className="headerImage" src="/Artworks/deon.png" />
+            <img
+              className="headerImage animate-horizontal animate-tilt-shake-alt"
+              src="/Artworks/Exp.png"
+            />
+            <img className="headerImage " src="/Artworks/Eyes.png" />
+            <img
+              className="headerImage animate-horizontal animate-tilt-shake"
+              style={{ translate: "-7.5% 3%", zIndex: 15 }}
+              src="/Artworks/lightning.png"
+            />
           </div>
         </Grid>
       </Grid>

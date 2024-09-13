@@ -36,7 +36,7 @@ const NavBar = ({ callback }) => {
         >
           <img id="logo" src="/agdeon.png" alt="Deons Logo" />
         </div>
-        <h1 style={{ fontWeight: "900" }}>Deons Lab</h1>
+        <h1 style={{ fontWeight: "900", marginBottom: "0px" }}>Deons Lab</h1>
         <div
           style={{
             display: "flex",

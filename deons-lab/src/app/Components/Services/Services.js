@@ -5,29 +5,24 @@ import Grid from "@mui/material/Grid2";
 const Services = forwardRef(({}, ref) => {
   const list = [
     {
-      title: "Web Design",
+      title: "Websites / Web Apps",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "Need I website for your business or a place to show off your services, I've got you covered. With my experience in different front-end and back-end services, I'll be able to deliver a site that meets your needs ",
     },
     {
-      title: "SEO",
+      title: "Unique Visual Themes",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    {
-      title: "Content Writing",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "If I have one talent, its my flare for artistic style and aesthetics, which I incorporate into all my projects from Logo's to websites. A good visual style can leave a long lasting impression and thats what I strive for",
     },
     {
       title: "Graphic Design",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "Years of experience creating graphic as both a freelancer and for personal projects. Logos, Mock-Ups, Apparal, Thumbnails, Flyers and Magazines. I've done them all",
     },
     {
       title: "Custom Illustrations",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "I'm more than just good with a pencil, with years of experience with digital art, If you're project requires illustration of any kind from anime characters to corporate drawings then you've come to the right place",
     },
   ];
   return (
