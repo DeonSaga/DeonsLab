@@ -127,7 +127,7 @@ const Projects = forwardRef(({}, ref) => {
                   }}
                 >
                   {selectedProject.tools.data.map((e, index) => (
-                    <div className="card">
+                    <div className="card" key={index}>
                       <h4 key={index}>{e.attributes.Name}</h4>
                     </div>
                   ))}
