@@ -9,14 +9,36 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ReactMarkdown from "react-markdown";
 import { getApiLink } from "@/app/Hooks/useApi";
 import { Markup } from "interweave";
+import ReactImageGallery from "react-image-gallery";
 
 const Projects = forwardRef(({}, ref) => {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelected] = useState(null);
+  const [images, setImages] = useState(null);
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (selectedProject) {
+      let results = [];
+      results.push({
+        original: selectedProject.Cover.data.attributes.url,
+        thumbnail: selectedProject.Cover.data.attributes.formats.thumbnail.url,
+      });
+      if (selectedProject.Media.data) {
+        selectedProject.Media.data.map((e, index) => {
+          results.push({
+            original: e.attributes.formats.medium.url,
+            thumbnail: e.attributes.formats.thumbnail.url,
+          });
+        });
+      }
+
+      setImages(results);
+    }
+  }, [selectedProject]);
 
   const fetchData = async () => {
     fetch(getApiLink() + "/api/portfolio-projects?populate=deep", {
@@ -35,6 +57,11 @@ const Projects = forwardRef(({}, ref) => {
     setSelected(e.attributes);
   };
 
+  const closeProjects = (e) => {
+    e.preventDefault();
+    e.stopPropogation();
+    setSelected(null);
+  };
   return (
     <section id="projects" ref={ref} className="strip alt">
       <h1 className="sectionTitle">Latest Projects</h1>
@@ -57,25 +84,54 @@ const Projects = forwardRef(({}, ref) => {
         </Suspense>
       </div>
       {selectedProject ? (
-        <div className="projectView" onClick={() => setSelected(null)}>
+        <div className="projectView">
           <div className="projectViewContainer">
             <div className="projectViewMedia">
-              <img
+              {/* <img
                 src={
                   selectedProject.Cover.data
-                    ? getApiLink() + selectedProject.Cover.data.attributes.url
+                    ? selectedProject.Cover.data.attributes.url
                     : "https://cdn.pixabay.com/photo/2017/01/14/12/59/iceland-1979445_960_720.jpg"
                 }
-              />
+              /> */}
+              {images ? <ReactImageGallery items={images} /> : ""}
             </div>
             <div className="projectViewInfo">
-              <h1>{selectedProject.Title}</h1>
-              <Markup content={selectedProject.Description}> </Markup>
-              <div>
-                <p>Tools Used:</p>{" "}
-                {selectedProject.tools.data.map((e, index) => (
-                  <p key={index}>{e.attributes.Name}</p>
-                ))}
+              <button onClick={() => setSelected(null)}>
+                <h2>Back</h2>
+              </button>
+
+              <div className="cardBorder">
+                <h2>Project Name:</h2>
+                <h1 className="sectionTitle">{selectedProject.Title}</h1>
+              </div>
+              <div className="cardBorder">
+                <h1>Description:</h1>
+                <Markup content={selectedProject.Description}> </Markup>
+              </div>
+
+              <div
+                className="cardBorder"
+                style={{
+                  alignItems: "center",
+                  gap: "0.5rem",
+                }}
+              >
+                <h1>Tools Used:</h1>
+
+                <div
+                  style={{
+                    display: "inline-flex",
+                    gap: "0.5rem",
+                    marginTop: "0.5rem",
+                  }}
+                >
+                  {selectedProject.tools.data.map((e, index) => (
+                    <div className="card">
+                      <h4 key={index}>{e.attributes.Name}</h4>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -113,7 +169,7 @@ const ProjectEntry = ({ info, callback }) => {
         <img
           src={
             info.Cover.data
-              ? getApiLink() + info.Cover.data.attributes.url
+              ? info.Cover.data.attributes.url
               : "https://cdn.pixabay.com/photo/2017/01/14/12/59/iceland-1979445_960_720.jpg"
           }
         />
