@@ -13,10 +13,14 @@ import ReactImageGallery from "react-image-gallery";
 
 const Projects = forwardRef(({}, ref) => {
   const [projects, setProjects] = useState([]);
+  const [cacheProjects, setCachedProjects] = useState([]);
   const [selectedProject, setSelected] = useState(null);
   const [images, setImages] = useState(null);
+  const [filter, setFilter] = useState({ id: "All", name: "All" });
+  const [avaliableTags, setAvaliableTags] = useState([]);
 
   useEffect(() => {
+    fetchCategories();
     fetchData();
   }, []);
 
@@ -35,10 +39,26 @@ const Projects = forwardRef(({}, ref) => {
           });
         });
       }
-
       setImages(results);
     }
   }, [selectedProject]);
+
+  const fetchCategories = async () => {
+    fetch(getApiLink() + "/api/tags?", {
+      headers: { "Content-Type": "application/json" },
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let results = [{ id: "All", name: "All" }];
+        console.log(data.data);
+        data.data.map((e, index) => {
+          results.push({ id: e.attributes.name, name: e.attributes.name });
+        });
+        console.log(results);
+        setAvaliableTags(results);
+      });
+  };
 
   const fetchData = async () => {
     fetch(getApiLink() + "/api/portfolio-projects?populate=deep", {
@@ -48,6 +68,7 @@ const Projects = forwardRef(({}, ref) => {
       .then((response) => response.json())
       .then((data) => {
         setProjects(data.data);
+        setCachedProjects(data.data);
         console.log(data.data);
       });
   };
@@ -62,11 +83,43 @@ const Projects = forwardRef(({}, ref) => {
     e.stopPropogation();
     setSelected(null);
   };
+
+  const applyFilter = (id) => {
+    // console.log(id);
+    if (id === "All") {
+      setFilter({ id: "All", name: "All" });
+      setProjects(cacheProjects);
+    } else {
+      let newFilter = avaliableTags.find((e) => e.id == id);
+      if (newFilter) {
+        setFilter(newFilter);
+        console.log(newFilter);
+        let newProjects = cacheProjects.filter((e) =>
+          e.attributes.Categories.data.find(
+            (tag) => tag.attributes.name == newFilter.name
+          )
+        );
+        setProjects(newProjects);
+      }
+    }
+  };
+
   return (
     <section id="projects" ref={ref} className="strip alt">
       <h1 className="sectionTitle">Latest Projects</h1>
       <div className="overlay">
         <Suspense fallback={<Loading />}>
+          <div className="tagContainer">
+            {avaliableTags.map((e, index) => (
+              <TagFilter
+                key={index}
+                name={e.name}
+                id={e.id}
+                callback={() => applyFilter(e.id)}
+                selected={filter && e.id === filter.id ? true : false}
+              />
+            ))}
+          </div>
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
@@ -233,5 +286,15 @@ const ProjectDisplay = ({ info, index }) => {
       <h3>{info.tools}</h3>
       {/* <Gallery media={images} /> */}
     </div>
+  );
+};
+
+const TagFilter = ({ name, selected, callback }) => {
+  const [active, setActive] = useState(selected);
+
+  return (
+    <span onClick={callback}>
+      <h3 className={selected ? "tag Active" : "tag"}>{name}</h3>
+    </span>
   );
 };

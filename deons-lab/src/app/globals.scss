@@ -402,6 +402,32 @@ tr {
   width: 50%;
 }
 
+.tagContainer {
+  display: inline-flex;
+  gap: 0.3rem;
+  overflow-x: auto;
+  margin: 1rem 0rem;
+  width: 100%;
+  height: fit-content;
+  text-align: center;
+}
+.tag {
+  height: 48px;
+  min-width: 48px;
+  background-color: $jet;
+
+  color: white;
+  font-size: 12px;
+  border-radius: 12px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  padding: 0.5em;
+}
+
+.Active {
+  background-color: $royal_purple;
+}
 .image-gallery-icon {
   border: solid black 2px;
   color: black;
