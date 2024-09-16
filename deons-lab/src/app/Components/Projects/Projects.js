@@ -210,11 +210,11 @@ const ProjectEntry = ({ info, callback }) => {
     let results = "";
     info.Categories.data.map((e, index) => {
       index > 0
-        ? (results += "/" + e.attributes.name)
+        ? (results += " / " + e.attributes.name)
         : (results += e.attributes.name);
     });
     setCategories(results);
-  }, []);
+  }, [info]);
 
   return (
     <div className="card projectCard" onClick={callback}>
