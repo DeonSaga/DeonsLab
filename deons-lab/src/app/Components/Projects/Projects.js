@@ -123,10 +123,10 @@ const Projects = forwardRef(({}, ref) => {
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 1, sm: 8, md: 12 }}
+            columns={{ xs: 1, sm: 8, md: 12, lg: 12 }}
           >
             {projects.map((e, index) => (
-              <Grid key={index} size={{ xs: 2, sm: 4, md: 4 }}>
+              <Grid key={index} size={{ xs: 2, sm: 4, md: 6, lg: 4 }}>
                 <ProjectEntry
                   info={e.attributes}
                   callback={() => changeProject(e)}

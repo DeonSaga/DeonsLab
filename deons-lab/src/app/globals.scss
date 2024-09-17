@@ -660,16 +660,16 @@ section {
   opacity: 1;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 980px) {
   .main {
   }
 
   .strip {
-    padding: 2rem 1rem;
+    padding: 2rem 0.3rem;
   }
 
   .navbar {
-    padding: 2rem 1rem;
+    padding: 2rem 0.3rem;
   }
 }
 
@@ -681,7 +681,6 @@ section {
     padding: 2rem 0.1rem;
   }
   .main {
-    background-color: blue;
     font-size: smaller;
   }
 
