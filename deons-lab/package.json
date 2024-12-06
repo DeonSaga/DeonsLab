@@ -31,6 +31,7 @@
     "react-responsive-gallery": "^3.0.3",
     "sass": "^1.64.2",
     "strapi-plugin-populate-deep": "^3.0.1",
+    "tech-stack-icons": "^2.1.0",
     "three": "^0.155.0"
   }
 }

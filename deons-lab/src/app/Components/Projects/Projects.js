@@ -10,16 +10,24 @@ import ReactMarkdown from "react-markdown";
 import { getApiLink } from "@/app/Hooks/useApi";
 import { Markup } from "interweave";
 import ReactImageGallery from "react-image-gallery";
+import { useSearchParams } from "next/navigation";
 
 const Projects = forwardRef(({}, ref) => {
   const [projects, setProjects] = useState([]);
   const [cacheProjects, setCachedProjects] = useState([]);
   const [selectedProject, setSelected] = useState(null);
   const [images, setImages] = useState(null);
-  const [filter, setFilter] = useState({ id: "All", name: "All" });
+
   const [avaliableTags, setAvaliableTags] = useState([]);
 
+  const searchParams = useSearchParams();
+  let tags = [];
+
+  const searchCategory = searchParams.get("category");
+  const [filter, setFilter] = useState({ id: "All", name: "All" });
+
   useEffect(() => {
+    console.log("Search", searchCategory);
     fetchCategories();
     fetchData();
   }, []);
@@ -51,12 +59,13 @@ const Projects = forwardRef(({}, ref) => {
       .then((response) => response.json())
       .then((data) => {
         let results = [{ id: "All", name: "All" }];
-        console.log(data.data);
+        //console.log(data.data);
         data.data.map((e, index) => {
           results.push({ id: e.attributes.name, name: e.attributes.name });
         });
         console.log(results);
         setAvaliableTags(results);
+        tags = results;
       });
   };
 
@@ -69,7 +78,23 @@ const Projects = forwardRef(({}, ref) => {
       .then((data) => {
         setProjects(data.data);
         setCachedProjects(data.data);
-        console.log(data.data);
+        //console.log(data.data);
+        return data;
+      })
+      .then((data) => {
+        if (searchCategory) {
+          //console.log(tags[2].id.toLowerCase(), searchCategory);
+          //console.log(data);
+          let newFilter = tags.find(
+            (e) => e.id.toLowerCase() == searchCategory
+          );
+          //console.log(newFilter);
+          if (newFilter) {
+            applyFilter(newFilter.id, tags, data.data);
+          } else {
+            setProjects(cacheProjects);
+          }
+        }
       });
   };
 
@@ -84,17 +109,18 @@ const Projects = forwardRef(({}, ref) => {
     setSelected(null);
   };
 
-  const applyFilter = (id) => {
-    // console.log(id);
+  const applyFilter = (id, inTags, data) => {
+    //console.log(id, inTags);
     if (id === "All") {
       setFilter({ id: "All", name: "All" });
-      setProjects(cacheProjects);
+      setProjects(data);
     } else {
-      let newFilter = avaliableTags.find((e) => e.id == id);
+      //console.log(tags);
+      let newFilter = inTags.find((e) => e.id == id);
       if (newFilter) {
         setFilter(newFilter);
-        console.log(newFilter);
-        let newProjects = cacheProjects.filter((e) =>
+        //console.log(newFilter, data);
+        let newProjects = data.filter((e) =>
           e.attributes.Categories.data.find(
             (tag) => tag.attributes.name == newFilter.name
           )
@@ -105,8 +131,8 @@ const Projects = forwardRef(({}, ref) => {
   };
 
   return (
-    <section id="projects" ref={ref} className="strip alt">
-      <h1 className="sectionTitle">Latest Projects</h1>
+    <section id="projects" ref={ref} className="strip">
+      <h1 className="sectionTitle">Projects</h1>
       <div className="overlay">
         <Suspense fallback={<Loading />}>
           <div className="tagContainer">
@@ -115,7 +141,7 @@ const Projects = forwardRef(({}, ref) => {
                 key={index}
                 name={e.name}
                 id={e.id}
-                callback={() => applyFilter(e.id)}
+                callback={() => applyFilter(e.id, avaliableTags, cacheProjects)}
                 selected={filter && e.id === filter.id ? true : false}
               />
             ))}

@@ -268,10 +268,14 @@ tr {
   padding: 2rem 12rem;
   width: 100%;
   min-height: 50%;
+  background-image: radial-gradient(rgb(202, 202, 202) 2px, transparent 0);
+  background-size: 80px 80px;
+  background-position: -19px -19px;
 }
 
 .strip.alt {
   background-color: $sunset;
+  background-image: none;
 }
 
 .projects {

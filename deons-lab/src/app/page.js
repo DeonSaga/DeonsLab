@@ -77,6 +77,11 @@ const Home = () => {
         });
         break;
 
+      case "Home":
+        homeSec.current.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        break;
+
       case "About":
         aboutSec.current.scrollIntoView({ behavior: "smooth", block: "start" });
 
@@ -94,8 +99,16 @@ const Home = () => {
     <main>
       <NavBar callback={(e) => changePage(e)} />
       <Suspense fallback={<Loading />}>
-        <About ref={aboutSec} />
-        <Services ref={servicesSec} />
+        <About ref={homeSec} />
+        {/* <section
+          id="about"
+          ref={aboutSec}
+          className="strip alt"
+          style={{ paddingBottom: "0rem" }}
+        >
+          <h1 className="sectionTitle">About me</h1>
+        </section> */}
+        {/* <Services ref={servicesSec} /> */}
         <Experience />
         <Projects ref={projSec} />
       </Suspense>

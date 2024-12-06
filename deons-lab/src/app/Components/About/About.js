@@ -7,7 +7,7 @@ import React, { useState, useEffect, Suspense, forwardRef } from "react";
 const About = forwardRef(({}, ref) => {
   return (
     <section
-      id="about"
+      id="home"
       ref={ref}
       className="strip"
       style={{ paddingBottom: "0rem" }}
@@ -16,14 +16,15 @@ const About = forwardRef(({}, ref) => {
         <Grid item size={6}>
           <Stack>
             <div className="headerTitle">
-              <h2>Multi Media Creative</h2>
+              <h2>Programmer & Creative</h2>
             </div>
 
             <h3 style={{ fontWeight: "normal" }}>
-              I design and develop services for customers of all sizes,
-              specializing in creating stylish, modern websites, web services
-              helping to bring your visions to life
+              My name is Gideon but I often go by Deon. I'm an ambitious
+              graduate looking to create and work on projects that leave a
+              lasting and impactful impression.
             </h3>
+            <span style={{ height: "1rem" }}></span>
             <button style={{ width: "fit-content" }}>Lets Talk!</button>
           </Stack>
         </Grid>

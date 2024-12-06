@@ -1,28 +1,48 @@
 import React from "react";
 import Grid from "@mui/material/Grid2";
 import { Stack } from "@mui/material";
+import StackIcon from "tech-stack-icons";
 
 const Experience = () => {
   const Skills = [
     {
       title: "NextJS",
+      id: "nextjs",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
     {
       title: "React",
+      id: "reactjs",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
     {
       title: "ThreeJS",
+      id: "threejs",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
     {
       title: "Photoshop",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      id: "ps",
+    },
+
+    {
+      title: "Tailwind",
+      id: "tailwindcss",
+    },
+    {
+      title: "Affinity",
+      id: "affinitydesigner",
+    },
+    {
+      title: "MongoDB",
+      id: "mongodb",
+    },
+    {
+      title: "Type Script",
+      id: "typescript",
     },
   ];
 
@@ -47,29 +67,38 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="strip">
-      <Grid container spacing={4} columns={{ xs: 1, sm: 8, md: 12 }}>
-        <Grid item size={{ xs: 2, sm: 2, md: 6 }}>
+    <section id="experience" className="strip alt">
+      <Grid container spacing={4} columns={{ xs: 1, sm: 8, md: 6 }}>
+        <Grid item size={{ xs: 2, sm: 2, md: 3 }}>
           <Stack>
-            <h1 className="sectionTitle">Skills & Experience</h1>
+            <h1 className="sectionTitle">About Me</h1>
             <p>
-              I design and develop services for customers of all sizes,
-              specializing in creating stylish, modern websites, web services
-              and online stores.
+              An ambitious individual with strong technical and creative
+              abilities demonstrated through various technical and non-technical
+              projects. Quick learner with a good understanding of software
+              engineering practices. Well-versed in various and diverse
+              software. Always looking for opportunities to apply my creative
+              thinking to a project that leaves an impact.
             </p>
-            <h3>Skills</h3>
-            <Grid
-              container
-              spacing={{ xs: 2, md: 3 }}
-              columns={{ xs: 2, sm: 8, md: 12 }}
-            >
-              {Skills.map((e, index) => (
-                <Grid key={index} size={{ xs: 1, sm: 4, md: 4 }}>
-                  <SkillCard index={index} info={e}></SkillCard>
-                </Grid>
-              ))}
-            </Grid>
           </Stack>
+        </Grid>
+        <Grid item size={{ xs: 2, sm: 2, md: 3 }}>
+          <h1>I have experience with:</h1>
+          <Grid
+            container
+            spacing={{ xs: 1, md: 8 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+          >
+            {Skills.map((e, index) => (
+              <Grid key={index} size={{ xs: 1, sm: 1, md: 1 }}>
+                {e.id !== null ? (
+                  <SkillCard index={index} info={e}></SkillCard>
+                ) : (
+                  ""
+                )}
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
         <Grid item size={{ xs: 2, sm: 2, md: 6 }}>
           <div>
@@ -90,19 +119,30 @@ export default Experience;
 
 const SkillCard = ({ info }) => {
   return (
-    <div className="card">
-      <h4>{info.title}</h4>
+    <div className="card" style={{ width: "64px", height: "64px" }}>
+      <StackIcon name={info.id} />
+      {/* <h4>{info.title}</h4> */}
     </div>
   );
 };
 
 const ExperienceEntry = ({ info }) => {
   return (
-    <tr style={{ display: "inline-flex", alignItems: "center", width: "100%" }}>
-      <h3>
-        {info.startDate}-{info.endDate}
-      </h3>
-      <div style={{ lineHeight: "normal" }}>
+    <tr
+      style={{
+        display: "inline-flex",
+        width: "100%",
+        minHeight: "3rem",
+        alignItems: "center",
+      }}
+    >
+      <div>
+        <h3>
+          {info.startDate}-{info.endDate}
+        </h3>
+      </div>
+
+      <div style={{ lineHeight: "normal", display: "inline-block" }}>
         <h3>{info.position}</h3>
         <p style={{ fontSize: "smaller" }}>{info.company}</p>
       </div>
