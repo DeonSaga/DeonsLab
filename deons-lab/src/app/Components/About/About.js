@@ -20,7 +20,7 @@ const About = forwardRef(({}, ref) => {
             </div>
 
             <h3 style={{ fontWeight: "normal" }}>
-              My name is Gideon but I often go by Deon. I'm an ambitious
+              My name is Gideon but I often go by Deon. I&apos;m an ambitious
               graduate looking to create and work on projects that leave a
               lasting and impactful impression.
             </h3>
