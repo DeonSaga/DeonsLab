@@ -34,6 +34,7 @@ const Projects = forwardRef(({}, ref) => {
 
   useEffect(() => {
     if (selectedProject) {
+      document.body.style.overflow = "hidden";
       let results = [];
       results.push({
         original: selectedProject.Cover.data.attributes.url,
@@ -48,6 +49,8 @@ const Projects = forwardRef(({}, ref) => {
         });
       }
       setImages(results);
+    } else {
+      document.body.style.overflow = "scroll";
     }
   }, [selectedProject]);
 
@@ -175,7 +178,7 @@ const Projects = forwardRef(({}, ref) => {
               /> */}
               {images ? <ReactImageGallery items={images} /> : ""}
             </div>
-            <div className="projectViewInfo">
+            <div className="projectViewInfo" style={{ pointerEvents: "auto" }}>
               <button onClick={() => setSelected(null)}>
                 <h2>Back</h2>
               </button>

@@ -86,11 +86,12 @@ const Experience = () => {
           <h1>I have experience with:</h1>
           <Grid
             container
-            spacing={{ xs: 1, md: 8 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, md: 6 }}
+            columns={{ xs: 4, sm: 8, md: 6 }}
           >
             {Skills.map((e, index) => (
-              <Grid key={index} size={{ xs: 1, sm: 1, md: 1 }}>
+              <Grid item key={index} size={{ xs: 1, sm: 1, md: 1 }}>
                 {e.id !== null ? (
                   <SkillCard index={index} info={e}></SkillCard>
                 ) : (
