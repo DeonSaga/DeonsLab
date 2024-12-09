@@ -64,4 +64,5 @@ const Contact = forwardRef(({}, ref) => {
   );
 });
 
+Contact.displayName = "Contact";
 export default Contact;
