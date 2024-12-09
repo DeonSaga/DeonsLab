@@ -116,6 +116,8 @@ const Experience = forwardRef(({}, ref) => {
   );
 });
 
+Experience.displayName = "Experience";
+
 export default Experience;
 
 const SkillCard = ({ info }) => {

@@ -44,6 +44,7 @@ import NavBar from "./Components/NavBar";
 import About from "./Components/About/About";
 import Services from "./Components/Services/Services";
 import Experience from "./Components/Experience/Experience";
+import Contact from "./Components/Contact/Contact";
 
 const Home = () => {
   //const sunset = new THREE.Color("var(--sunset)").convertSRGBToLinear;
@@ -57,6 +58,7 @@ const Home = () => {
   const homeSec = useRef();
   const aboutSec = useRef();
   const servicesSec = useRef();
+  const contactSec = useRef();
   const projSec = useRef(null);
 
   const changePage = (e) => {
@@ -90,6 +92,14 @@ const Home = () => {
 
         break;
 
+      case "Contact":
+        contactSec.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+
+        break;
+
       default:
         break;
     }
@@ -102,7 +112,7 @@ const Home = () => {
     <main>
       <NavBar callback={(e) => changePage(e)} />
       <Suspense fallback={<Loading />}>
-        <About ref={homeSec} />
+        <About ref={homeSec} cta={() => changePage("Contact")} />
         {/* <section
           id="about"
           ref={aboutSec}
@@ -114,7 +124,26 @@ const Home = () => {
         {/* <Services ref={servicesSec} /> */}
         <Experience ref={aboutSec} />
         <Projects ref={projSec} />
+        <Contact ref={contactSec} />
       </Suspense>
+      <section
+        id="footer"
+        className="strip dark"
+        style={{ backgroundColor: "#212121", minHeight: "20vh" }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+
+            margin: "auto",
+          }}
+        >
+          <p>Thanks for Viewing</p>
+          <h4>By Gideon Coker, 2024</h4>
+        </div>
+      </section>
     </main>
   );
 };

@@ -70,7 +70,9 @@ const NavBar = ({ callback }) => {
             </div>
             <NavItem title="About" callback={() => changeTo("About")} />
             <NavItem title="Projects" callback={() => changeTo("Projects")} />
-            <button className="NavbarCTA">Contact Now</button>
+            <button className="NavbarCTA" onClick={() => changeTo("Contact")}>
+              Contact Now
+            </button>
           </div>
         </div>
         <div className="navToggle" onClick={toggleMenu}>

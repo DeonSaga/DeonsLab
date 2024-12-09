@@ -60,6 +60,26 @@ p {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 50%;
+}
+input,
+textarea {
+  width: 100%;
+  padding: 1rem 0.7rem;
+  border: #000000 2px solid;
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-radius: 0px;
+  box-shadow: 5px 5px;
+}
+
 body {
   // max-width: 100vw;
   width: 100%;
@@ -119,6 +139,7 @@ button {
   align-items: center;
   width: 100%;
   padding-left: 2rem;
+  margin-left: 60%;
   gap: 2rem;
 }
 
@@ -136,6 +157,7 @@ button {
 .navItem:hover {
   background-color: $royal_purple;
   transition: 0.44s ease-in-out;
+  color: white;
 }
 
 .navItem Active {
@@ -286,6 +308,12 @@ tr {
   background-image: radial-gradient(rgb(202, 202, 202) 2px, transparent 0);
   background-size: 80px 80px;
   background-position: -19px -19px;
+}
+
+.strip.dark {
+  background-color: $space_cadet;
+  color: white;
+  background-image: radial-gradient(rgb(41, 41, 41) 2px, transparent 0);
 }
 
 .strip.alt {
@@ -709,6 +737,10 @@ section {
 
   .sectionTitle {
     font-size: smaller;
+  }
+
+  form {
+    width: 100%;
   }
 
   .navbar {

@@ -4,13 +4,17 @@ import { Stack } from "@mui/system";
 import Grid from "@mui/material/Grid2";
 import React, { useState, useEffect, Suspense, forwardRef } from "react";
 
-const About = forwardRef(({}, ref) => {
+const About = forwardRef(({ cta }, ref) => {
   return (
     <section
       id="home"
       ref={ref}
       className="strip"
-      style={{ paddingBottom: "0rem", scrollMarginTop: "0rem" }}
+      style={{
+        paddingBottom: "0rem",
+        scrollMarginTop: "0rem",
+        paddingTop: "10rem",
+      }}
     >
       <Grid container lg={12} spacing={4} columns={{ xs: 1, sm: 2, md: 12 }}>
         <Grid item size={6}>
@@ -25,7 +29,9 @@ const About = forwardRef(({}, ref) => {
               lasting and impactful impression.
             </h3>
             <span style={{ height: "1rem" }}></span>
-            <button style={{ width: "fit-content" }}>Lets Talk!</button>
+            <button style={{ width: "fit-content" }} onClick={cta}>
+              Lets Talk!
+            </button>
           </Stack>
         </Grid>
         <Grid item size={6}>
