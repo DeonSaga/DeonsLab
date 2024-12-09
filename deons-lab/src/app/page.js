@@ -83,7 +83,10 @@ const Home = () => {
         break;
 
       case "About":
-        aboutSec.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        aboutSec.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
 
         break;
 
@@ -109,7 +112,7 @@ const Home = () => {
           <h1 className="sectionTitle">About me</h1>
         </section> */}
         {/* <Services ref={servicesSec} /> */}
-        <Experience />
+        <Experience ref={aboutSec} />
         <Projects ref={projSec} />
       </Suspense>
     </main>
@@ -122,7 +125,7 @@ const Loading = () => {
   return (
     <div
       style={{
-        width: "20%",
+        width: "100%",
         height: "100%",
         margin: "auto",
         display: "flex",

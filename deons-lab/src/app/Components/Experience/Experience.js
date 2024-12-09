@@ -1,9 +1,9 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import Grid from "@mui/material/Grid2";
 import { Stack } from "@mui/material";
 import StackIcon from "tech-stack-icons";
 
-const Experience = () => {
+const Experience = forwardRef(({}, ref) => {
   const Skills = [
     {
       title: "NextJS",
@@ -67,7 +67,7 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="strip alt">
+    <section id="about" className="strip alt" ref={ref}>
       <Grid container spacing={4} columns={{ xs: 1, sm: 8, md: 6 }}>
         <Grid item size={{ xs: 2, sm: 2, md: 3 }}>
           <Stack>
@@ -87,8 +87,8 @@ const Experience = () => {
           <Grid
             container
             rowSpacing={1}
-            columnSpacing={{ xs: 1, md: 6 }}
-            columns={{ xs: 4, sm: 8, md: 6 }}
+            columnSpacing={{ xs: 2, sm: 2, md: 6 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
           >
             {Skills.map((e, index) => (
               <Grid item key={index} size={{ xs: 1, sm: 1, md: 1 }}>
@@ -114,7 +114,7 @@ const Experience = () => {
       </Grid>
     </section>
   );
-};
+});
 
 export default Experience;
 

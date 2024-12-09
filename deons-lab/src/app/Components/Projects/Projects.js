@@ -34,7 +34,7 @@ const Projects = forwardRef(({}, ref) => {
 
   useEffect(() => {
     if (selectedProject) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflowY = "hidden";
       let results = [];
       results.push({
         original: selectedProject.Cover.data.attributes.url,
@@ -50,7 +50,7 @@ const Projects = forwardRef(({}, ref) => {
       }
       setImages(results);
     } else {
-      document.body.style.overflow = "scroll";
+      document.body.style.overflowY = "scroll";
     }
   }, [selectedProject]);
 

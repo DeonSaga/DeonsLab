@@ -10,7 +10,7 @@ const About = forwardRef(({}, ref) => {
       id="home"
       ref={ref}
       className="strip"
-      style={{ paddingBottom: "0rem" }}
+      style={{ paddingBottom: "0rem", scrollMarginTop: "0rem" }}
     >
       <Grid container lg={12} spacing={4} columns={{ xs: 1, sm: 2, md: 12 }}>
         <Grid item size={6}>
@@ -45,7 +45,7 @@ const About = forwardRef(({}, ref) => {
             <img className="headerImage " src="/Artworks/Eyes.png" />
             <img
               className="headerImage animate-horizontal animate-tilt-shake"
-              style={{ translate: "-7.5% 3%", zIndex: 15 }}
+              style={{ translate: "-7.5% 3%" }}
               src="/Artworks/lightning.png"
             />
           </div>

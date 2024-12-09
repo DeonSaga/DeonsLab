@@ -2,25 +2,30 @@
 import React, { useState, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-
+import { useRouter } from "next/navigation";
 const NavBar = ({ callback }) => {
   const [showMenu, setShowMenu] = useState(false);
+  const [scroll, setScroll] = useState(false);
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", () => {
-  //     console.log("scroll");
-  //     setScroll(window.scrollY >= 10);
-  //   });
-  // }, []);
+  const router = useRouter();
+  const backToMain = () => {
+    router.push("/");
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      //console.log(window.scrollY);
+      setScroll(window.scrollY > 121);
+    });
+  }, []);
 
   const changeTo = (e) => {
     callback(e);
   };
   return (
-    <div className="navbar">
+    <div className={`navbar ${scroll ? "navscroll" : ""}`}>
       <div
         style={{
           display: "flex",
@@ -32,11 +37,22 @@ const NavBar = ({ callback }) => {
           style={{
             width: "86px",
             height: "86px",
+            cursor: "pointer",
           }}
         >
-          <img id="logo" src="/agdeon.png" alt="Deons Logo" />
+          <img
+            id="logo"
+            src="/agdeon.png"
+            alt="Deons Logo"
+            onClick={() => changeTo("Home")}
+          />
         </div>
-        <h1 style={{ fontWeight: "900", marginBottom: "0px" }}>Deons Lab</h1>
+        <h1
+          style={{ fontWeight: "900", marginBottom: "0px", cursor: "pointer" }}
+          onClick={() => changeTo("Home")}
+        >
+          Deons Lab
+        </h1>
         <div
           style={{
             display: "flex",
@@ -53,7 +69,6 @@ const NavBar = ({ callback }) => {
               <CloseIcon />
             </div>
             <NavItem title="About" callback={() => changeTo("About")} />
-            <NavItem title="Services" callback={() => changeTo("Services")} />
             <NavItem title="Projects" callback={() => changeTo("Projects")} />
             <button className="NavbarCTA">Contact Now</button>
           </div>

@@ -23,6 +23,7 @@ html,
 body {
   margin: 0px;
   padding: 0px;
+  width: 100%;
   // min-height: 100vh;
   color: rgb(0, 0, 0);
   // line-height: 1em;
@@ -61,8 +62,9 @@ p {
 
 body {
   // max-width: 100vw;
+  width: 100%;
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   transition: 0.24s ease-in-out;
 }
 
@@ -70,6 +72,10 @@ body {
   // font-family: "Anton", Tahoma, Geneva, Verdana, sans-serif;
   font-family: "Rubik", sans-serif;
   font-optical-sizing: auto;
+}
+
+section {
+  scroll-margin-top: 10rem;
 }
 
 .sectionTitle {
@@ -97,8 +103,10 @@ button {
   padding: 1rem 12rem;
   width: 100%;
   border-bottom: solid 2px black;
-
+  transition: all 0.7s ease-in-out;
+  position: fixed;
   align-items: center;
+  z-index: 3000;
 }
 
 #logo {
@@ -155,6 +163,14 @@ button {
   display: flex;
 }
 
+.navscroll {
+  // position: fixed;
+
+  background-color: rgba(255, 255, 255, 0.8);
+
+  z-index: 5;
+  padding: 0.1em 12rem;
+}
 button:hover {
   background-color: black;
   // color: darken($color: $cool_gray, $amount: 100%);
@@ -181,7 +197,6 @@ main {
   top: 0;
   left: 0;
   height: inherit;
-  z-index: 10;
 }
 
 .borderBackground {
@@ -362,19 +377,22 @@ tr {
 }
 
 .projectView {
-  position: fixed;
+  position: absolute;
   display: flex;
-  top: 0;
-  left: 0;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
   color: white;
-  z-index: 20;
+  z-index: 2000;
 
   width: 100%;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
+  margin: auto;
 
-  box-sizing: border-box;
+  // box-sizing: border-box;
 
   background-size: 100px 100px;
   background-color: rgba($color: $jet, $alpha: 0.93);
@@ -387,11 +405,18 @@ tr {
 }
 
 .projectViewContainer {
-  height: 70%;
-  width: 90%;
-
-  align-items: center;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 30%;
   display: flex;
+  position: fixed;
+  max-width: 70%;
+
+  margin: auto;
+  align-items: center;
+
   gap: 2rem;
 }
 
@@ -682,8 +707,20 @@ section {
   body {
   }
 
+  .sectionTitle {
+    font-size: smaller;
+  }
+
   .navbar {
-    padding: 2rem 0.1rem;
+    padding: 0.1em 0.1rem;
+  }
+
+  .navscroll {
+    padding: 0.1em 0.1rem;
+    margin: 0px;
+    position: fixed;
+    width: 100%;
+    top: 0;
   }
   .main {
     font-size: smaller;
@@ -694,17 +731,26 @@ section {
     top: 0;
     right: -100%;
     background-color: hsla(0, 0%, 100%, 1);
-    // backdrop-filter: blur(16px);
-    // -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     color: black;
-    gap: 3rem;
-    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 60%;
     height: 100%;
     padding: 6rem 3rem 0;
     transition: right 0.4s;
-    display: block;
-    z-index: 20;
+
+    z-index: 6000;
     border-left: 2px solid black;
+  }
+  .navItem {
+    width: 100%;
+  }
+  .NavbarCTA {
+    margin: auto;
+    margin-top: 1rem;
   }
   .showNavMenu {
     right: 0%;
@@ -715,7 +761,7 @@ section {
   }
   .navClose {
     // position: absolute;
-    position: relative;
+    // position: relative;
     display: block;
   }
 
@@ -724,16 +770,27 @@ section {
   }
 
   .projectView {
+    overflow-x: hidden;
   }
   .projectViewContainer {
+    position: fixed;
     display: block;
-    width: 100%;
+    min-width: 70%;
+    width: 70%;
+    max-width: 70%;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: auto;
+
     height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
+
     padding: 1rem;
   }
   .projectViewMedia {
-    width: 100%;
+    width: 90%;
+    max-width: 90%;
   }
   .projectViewInfo {
     width: 100%;
