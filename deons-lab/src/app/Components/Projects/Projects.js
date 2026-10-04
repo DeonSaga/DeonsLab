@@ -89,7 +89,7 @@ const Projects = forwardRef(({}, ref) => {
           //console.log(tags[2].id.toLowerCase(), searchCategory);
           //console.log(data);
           let newFilter = tags.find(
-            (e) => e.id.toLowerCase() == searchCategory
+            (e) => e.id.toLowerCase() == searchCategory,
           );
           //console.log(newFilter);
           if (newFilter) {
@@ -125,8 +125,8 @@ const Projects = forwardRef(({}, ref) => {
         //console.log(newFilter, data);
         let newProjects = data.filter((e) =>
           e.attributes.Categories.data.find(
-            (tag) => tag.attributes.name == newFilter.name
-          )
+            (tag) => tag.attributes.name == newFilter.name,
+          ),
         );
         setProjects(newProjects);
       }
@@ -204,7 +204,7 @@ const Projects = forwardRef(({}, ref) => {
                 <div
                   style={{
                     display: "inline-flex",
-                    gap: "0.5rem",
+                    gap: "0.6rem",
                     marginTop: "0.5rem",
                   }}
                 >
